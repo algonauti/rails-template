@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+  app:
+    build: .
+    image: <%= app_name %>
+    command: bash -c "/usr/local/bundle/bin/foreman start -f Procfile"
+    environment:
+      BUNDLE_PATH: /usr/local/bundle
+      PORT: 3000
+      POSTGRES_HOST: 'postgres'
+      POSTGRES_USER: 'root'
+      RAILS_ENV: development
+      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
+      REDIS_URL: "redis://redis:6379/1"
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ${PWD}:/app
+      - bundle:/usr/local/bundle
+  postgres:
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+  redis:
+    image: redis:5-alpine
+volumes:
+  postgresql:
+  bundle:
