@@ -1,42 +1,15 @@
 require "bundler"
 require "securerandom"
 
+
+Dir[File.join(__dir__, 'bindings', '*.rb')].each { |file| require file }
+
 def apply_template!
   assert_minimum_rails_version
   add_template_repository_to_source_path
   copy_default_templates
 
   run 'bundle install'
-end
-
-class DatabaseConfigBinding
-  def initialize(parent)
-    @parent = parent
-  end
-
-  def get_binding
-    binding
-  end
-
-  def username
-    "<%= ENV.fetch('POSTGRES_USER') { 'postgres' } %>"
-  end
-
-  def password
-    "<%= ENV.fetch('POSTGRES_PASSWORD') { 'postgres' } %>"
-  end
-
-  def host
-    "<%= ENV.fetch('POSTGRES_HOST') { 'localhost' } %>"
-  end
-
-  def port
-    "<%= ENV.fetch('POSTGRES_PORT') { '5432' } %>"
-  end
-
-  def app_name
-    @parent.send :app_name
-  end
 end
 
 def copy_default_templates
@@ -49,7 +22,7 @@ def copy_default_templates
   template "README.md", force: true
 
   template "config/database.yml.tt",
-    context: DatabaseConfigBinding.new(self).get_binding,
+    context: DatabaseConfigBinding.context(self),
     force: true
 
 end
