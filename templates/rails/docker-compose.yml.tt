@@ -6,6 +6,8 @@ services:
     command: bash -c "/usr/local/bundle/bin/foreman start -f Procfile"
     environment:
       BUNDLE_PATH: /usr/local/bundle
+      DEVISE_SECRET_KEY: "${DEVISE_SECRET_KEY}"
+      DEVISE_MAIL_SENDER: "${DEVISE_MAIL_SENDER}"
       PORT: 3000
       POSTGRES_HOST: 'postgres'
       POSTGRES_USER: 'root'

@@ -2,10 +2,10 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: <%= username %>
-  password: <%= password %>
-  host: <%= host %>
-  port: <%= port %>
+  username: <%= pg_username %>
+  password: <%= pg_password %>
+  host: <%= pg_host %>
+  port: <%= pg_port %>
 
 development:
   <<: *default

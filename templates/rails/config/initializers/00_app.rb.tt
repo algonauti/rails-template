@@ -1,0 +1,21 @@
+module <%= module_name %>
+  VERSION = File.read(Rails.root.join("VERSION")).strip rescue "alpha"
+  REVISION = ENV.fetch("GIT_REV") { "dev" }
+
+  def self.version
+    "#{<%= module_name %>::VERSION}-#{<%= module_name %>::REVISION[0...8]}"
+  end
+
+  def self.config
+    <%= module_name %>::Configuration.instance
+  end
+
+  class Configuration
+    include Singleton, ActiveModel::Serialization
+
+
+    def base_url
+      ENV.fetch("BASE_URL") { "http://localhost:3000" }
+    end
+  end
+end

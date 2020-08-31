@@ -1,0 +1,22 @@
+stages:
+  - test
+
+rspec:
+  stage: test
+  image: "algonauti/ruby"
+  tags:
+    - tests
+  services:
+    - postgres:12.2-alpine
+    - redis:5-alpine
+
+  cache:
+    key: "$CI_PROJECT_NAME"
+    paths:
+      - vendor/ruby
+
+  before_script:
+    - bundle install --path vendor --jobs $(nproc) "${FLAGS[@]}"
+
+  script:
+    - RAILS_ENV=test bundle exec rake spec
