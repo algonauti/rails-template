@@ -17,5 +17,37 @@ module <%= module_name %>
     def base_url
       ENV.fetch("BASE_URL") { "http://localhost:3000" }
     end
+
+    def smtp_email_sender
+      ENV.fetch("SMTP_EMAIL_SENDER") { nil }
+    end
+
+    def smtp_port
+      ENV.fetch("SMTP_PORT") { nil }
+    end
+
+    def smtp_address
+      ENV.fetch("SMTP_ADDRESS") { nil }
+    end
+
+    def smtp_username
+      ENV.fetch("SMTP_USER") { nil }
+    end
+
+    def smtp_password
+      ENV.fetch("SMTP_PASS") { nil }
+    end
+
+    def smtp_domain
+      ENV.fetch("SMTP_DOMAIN") { nil }
+    end
+
+    def smtp_authentication
+      ENV.fetch("SMTP_AUTHENTICATION") { :plan }
+    end
+
+    def smtp_enable_starttls_auto
+      ENV.fetch("SMTP_STARTTLS_AUTO") { true }
+    end
   end
 end

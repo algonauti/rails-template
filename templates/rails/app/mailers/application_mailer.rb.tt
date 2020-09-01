@@ -1,0 +1,4 @@
+class ApplicationMailer < ActionMailer::Base
+  default from: <%= module_name %>.config.smtp_email_sender
+  layout 'mailer'
+end
