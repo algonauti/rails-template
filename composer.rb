@@ -36,10 +36,15 @@ extend Context
 def compose!
   assert_minimum_rails_version
   add_template_repository_to_source_path
+  remove_unused_files
   copy_templates
   copy_migrations
 
   initial_commit
+end
+
+def remove_unused_files
+  run "rm app/assets/stylesheets/application.css"
 end
 
 def initial_commit
