@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   #
-  #
-  #
-  use_doorkeeper
-
-  #
-  #
+  # Web Authentication
   #
   devise_for :users
+
+  #
+  # API Authentication
+  #
+  use_doorkeeper
 
   #
   # API
@@ -17,5 +17,4 @@ Rails.application.routes.draw do
       resources :users, only: [:show]
     end
   end
-  root to: "application#root"
 end
