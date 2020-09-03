@@ -54,9 +54,8 @@ def copy_templates
 end
 
 def copy_migrations
-  now = Time.now
-  template "migrations/devise_create_users.rb", "db/migrate/#{(now + 1).strftime("%Y%m%d%H%M%S")}_devise_create_users.rb"
-  template "migrations/create_doorkeeper_tables.rb", "db/migrate/#{(now + 2).strftime("%Y%m%d%H%M%S")}_create_doorkeeper_tables.rb"
+  template "migrations/01_devise_create_users.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M")}01_devise_create_users.rb"
+  template "migrations/02_create_doorkeeper_tables.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M")}02_create_doorkeeper_tables.rb"
 end
 
 def assert_minimum_rails_version
