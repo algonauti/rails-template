@@ -8,10 +8,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       let(:user) { create(:user) }
 
       it "returns own user" do
-        get :show, params: { id: user.id }
+        get :show, params: { id: user.id }, format: :json
+
         expect(response).to have_http_status(:ok)
+        expect(response_data).to have_id(user.id.to_s)
       end
     end
   end
-
 end

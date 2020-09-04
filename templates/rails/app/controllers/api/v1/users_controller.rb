@@ -1,11 +1,5 @@
 class Api::V1::UsersController < Api::BaseController
   def show
-    render json: serialize(User.find(params[:id]))
-  end
-
-  private
-
-  def serialize(user)
-    UserSerializer.new(user).serializable_hash.to_json
+    respond_with UserFinder.new(current_user).find(params[:id])
   end
 end
