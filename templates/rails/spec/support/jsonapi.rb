@@ -11,6 +11,10 @@ module JSONAPISupport
   def response_data
     response_body[:data]
   end
+
+  def query_params(params = {})
+    { params: params }
+  end
 end
 
 RSpec.configure do |config|

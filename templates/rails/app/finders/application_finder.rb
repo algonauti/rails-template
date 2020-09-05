@@ -8,13 +8,7 @@ class ApplicationFinder
   end
 
   def search(params)
-    raise NotImplementedError
-  end
-
-  def where(opts = :chain, *rest)
-    if authorize(scope_model, :index?)
-      scope_finder.where(opts, rest)
-    end
+    accessible_records
   end
 
   def find(id)
@@ -22,6 +16,12 @@ class ApplicationFinder
   end
 
   protected
+
+  def accessible_records
+    if authorize(scope_model, :index?)
+      scope_finder
+    end
+  end
 
   def scope_finder
     policy_scope(scope_model)
