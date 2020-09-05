@@ -1,33 +1,25 @@
 class ApplicationPolicy
-  attr_reader :user, :record
+  attr_reader :current_user, :record
 
-  def initialize(user, record)
-    @user = user
+  def initialize(current_user, record)
+    @current_user = current_user
     @record = record
   end
 
   def index?
-    false
+    true
   end
 
   def show?
-    false
+    true
   end
 
   def create?
     false
   end
 
-  def new?
-    create?
-  end
-
   def update?
     false
-  end
-
-  def edit?
-    update?
   end
 
   def destroy?
@@ -35,10 +27,10 @@ class ApplicationPolicy
   end
 
   class Scope
-    attr_reader :user, :scope
+    attr_reader :current_user, :scope
 
-    def initialize(user, scope)
-      @user = user
+    def initialize(current_user, scope)
+      @current_user = current_user
       @scope = scope
     end
 

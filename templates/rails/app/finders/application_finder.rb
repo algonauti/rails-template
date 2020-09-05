@@ -7,13 +7,23 @@ class ApplicationFinder
     @current_user = current_user
   end
 
+  def where(opts = :chain, *rest)
+    if authorize(scope_model, :index?)
+      scope_finder.where(opts, rest)
+    end
+  end
+
   def find(id)
-    authorize(policy_scope(policy_scope_model).find(id), :show?)
+    authorize(scope_finder.find(id), :show?)
   end
 
   protected
 
-  def policy_scope_model
+  def scope_finder
+    policy_scope(scope_model)
+  end
+
+  def scope_model
     self.class.name.chomp("Finder").constantize
   end
 

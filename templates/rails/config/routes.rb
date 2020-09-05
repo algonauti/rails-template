@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #
   # API
   #
-  namespace :api, defaults: { format: "json" } do
+  namespace :api, defaults: { format: "jsonapi" } do
     scope module: :v1 do
       resources :users, only: [:show]
     end

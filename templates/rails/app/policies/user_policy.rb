@@ -1,37 +1,13 @@
 class UserPolicy < ApplicationPolicy
-  def index?
-    false
-  end
-
-  def show?
-    user.id == record.id
-  end
-
-  def create?
-    false
-  end
-
-  def new?
-    create?
-  end
-
   def update?
-    false
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    false
+    current_user.id == record.id
   end
 
   class Scope
-    attr_reader :user, :scope
+    attr_reader :current_user, :scope
 
-    def initialize(user, scope)
-      @user = user
+    def initialize(current_user, scope)
+      @current_user = current_user
       @scope = scope
     end
 
