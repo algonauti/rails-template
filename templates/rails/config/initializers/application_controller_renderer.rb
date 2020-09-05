@@ -10,7 +10,7 @@
 ActiveSupport::Reloader.to_prepare do
   ActionController::Renderers.add :jsonapi do |json, options|
     self.content_type = Mime[:jsonapi] if media_type.nil?
-    self.response_body = "#{json.class.name}Serializer".constantize.new(json, {
+    self.response_body = "#{controller_name.classify}Serializer".constantize.new(json, {
       params: options.merge({
         current_user: current_user
       })

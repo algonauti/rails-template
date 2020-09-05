@@ -7,6 +7,10 @@ class ApplicationFinder
     @current_user = current_user
   end
 
+  def search(params)
+    raise NotImplementedError
+  end
+
   def where(opts = :chain, *rest)
     if authorize(scope_model, :index?)
       scope_finder.where(opts, rest)
