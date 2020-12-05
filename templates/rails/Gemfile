@@ -18,7 +18,11 @@ gem 'pundit'
 gem 'pg', '~> 1.2'
 
 # Use Puma as the app server
-gem 'puma', '~> 4'
+gem 'puma', '~> 5'
+
+# Rack Middlwares
+gem 'rack-cors'
+gem 'rack-attack'
 
 # Use Redis adapter
 gem 'redis', '~> 4.1.0'
