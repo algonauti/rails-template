@@ -64,11 +64,11 @@ def copy_migrations
 end
 
 def assert_minimum_rails_version
-  requirement = Gem::Requirement.new("~> 6.0.0")
+  requirement = Gem::Requirement.new("~> 6.1.0")
   rails_version = Gem::Version.new(Rails::VERSION::STRING)
   return if requirement.satisfied_by?(rails_version)
 
-  prompt = "This template requires Rails ~> 6.0.0. "\
+  prompt = "This template requires Rails ~> 6.1.0. "\
            "You are using #{rails_version}. Continue anyway?"
   exit 1 if no?(prompt)
 end
