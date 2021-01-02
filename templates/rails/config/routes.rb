@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   #
   # API Authentication
   #
-  use_doorkeeper
+  use_doorkeeper do
+    skip_controllers  :authorizations,
+                      :applications,
+                      :authorized_applications,
+                      :token_info
+  end
 
   #
   # API

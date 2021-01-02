@@ -2,10 +2,18 @@ Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
   orm :active_record
 
-  # This block will be called to check whether the resource owner is authenticated or not.
-  resource_owner_authenticator do
-    User.find_by_id(session[:user_id]) || head(:unauthorized)
-  end
+  # If you are planning to use Doorkeeper in Rails API-only application, then you might
+  # want to use API mode that will skip all the views management and change the way how
+  # Doorkeeper responds to a requests.
+  #
+  api_only
+
+  # The controller +Doorkeeper::ApplicationController+ inherits from.
+  # Defaults to +ActionController::Base+ unless +api_only+ is set, which changes the default to
+  # +ActionController::API+. The return value of this option must be a stringified class name.
+  # See https://doorkeeper.gitbook.io/guides/configuration/other-configurations#custom-base-controller
+  #
+  base_controller 'Api::BaseController'
 
   # Specify what grant flows are enabled in array of Strings. The valid
   # strings and the flows they enable are:
@@ -25,6 +33,15 @@ Doorkeeper.configure do
   #
   grant_flows %w(password)
 
+  # Issue access tokens with refresh token (disabled by default), you may also
+  # pass a block which accepts `context` to customize when to give a refresh
+  # token or not. Similar to +custom_access_token_expires_in+, `context` has
+  # the following properties:
+  #
+  # `client` - the OAuth client application (see Doorkeeper::OAuth::Client)
+  # `grant_type` - the grant type of the request (see Doorkeeper::OAuth)
+  # `scopes` - the requested scopes (see Doorkeeper::OAuth::Scopes)
+  #
   use_refresh_token
 
   resource_owner_from_credentials do
