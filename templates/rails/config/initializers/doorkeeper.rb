@@ -51,9 +51,7 @@ Doorkeeper.configure do
         User.find_for_database_authentication(email: params[:email])
       end
 
-    if user && user.valid_for_authentication? { user.valid_password_and_allowed_ip?(params[:password], request.remote_ip) }
-      request.env["warden"].cookies.permanent.signed["user.id"] = user.id
-      request.env["warden"].cookies.permanent.signed["user.expires_at"] = 5.days.from_now
+    if user && user.valid_for_authentication?
       user
     end
   end
